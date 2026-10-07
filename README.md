@@ -63,3 +63,10 @@ This project uses public mapping/routing services. Respect their usage policies 
 The MDT now has a full training login/profile form. A crew member can enter a staff ID, password/PIN, name, custom role, ambulance ID/callsign, partner(s), station, vehicle type, shift, radio channel, supervisor and training vehicle registration. The ambulance ID becomes the unit callsign used by the multiplayer CAD. Profiles can be remembered locally on the device.
 
 **Important:** this is a roleplay/training application. Do not enter real NHS credentials, real patient information or other operationally sensitive data.
+
+
+## Notification sounds
+The UI is wired to `/sounds/job-alert.mp3` and `/sounds/message.mp3`. The requested Zedge pages are linked in the project documentation, but the pages do not expose a direct media file to this build, so the ZIP does not redistribute those audio files. Download them from the source pages if you have permission, rename them to the filenames above, and place them in `sounds/`. Until then the app uses its built-in fallback tones.
+
+- Job alert source: https://www.zedge.net/notification-sounds/0207ac65-3379-4439-90ef-27aa8f865e3d
+- Message source: https://www.zedge.net/notification-sounds/20c2a451-51cb-49ac-9c69-2aa205b7cd11
