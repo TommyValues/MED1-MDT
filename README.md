@@ -1,4 +1,4 @@
-# Ambulance MDT UK — Multiplayer CAD / MDT
+# Ambulance MDT UK — Multiplayer CAD / MDT — v7 complete build
 
 A UK-style ambulance MDT training/roleplay application inspired by rugged in-vehicle MDT layouts. **This is not an operational NHS system and must not be used for real emergency dispatch.**
 
@@ -14,6 +14,10 @@ A UK-style ambulance MDT training/roleplay application inspired by rugged in-veh
 - Control CAD dashboard at `/control`
 - JSON state persistence in `data/state.json`
 - Render deployment configuration
+- Team Lead mode with Crew Management, Unit Management, Shift Log and Reports
+- Team Lead live unit status override and incident assignment controls
+- Printable/exportable Team Lead training report
+- Optional local job/message MP3 hooks with built-in fallbacks
 
 ## Run locally
 

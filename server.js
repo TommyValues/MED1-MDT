@@ -106,6 +106,22 @@ io.on('connection', socket=>{
     const msg={id:Date.now().toString(),from:'Blackpool Control',to:m.to||'ALL',text:String(m.text||'').slice(0,1000),at:new Date().toISOString()};
     state.messages.unshift(msg); saveState(); io.emit('message:new',msg);
   });
+  socket.on('control:assign', p=>{
+    const item=state.incidents.find(x=>x.id===p.id); if(!item)return;
+    item.status='Assigned'; item.assignedUnit=p.unitId||null;
+    state.history.unshift({at:new Date().toISOString(),action:'assigned',incident:item.id,unit:p.unitId||null,by:p.by||socket.data.unitId||'Control'});
+    saveState(); io.emit('incident:update',item);
+  });
+  socket.on('control:unitStatus', p=>{
+    const unit=units.get(p.id); if(!unit)return;
+    unit.status=String(p.status||'Available'); unit.updatedAt=new Date().toISOString();
+    state.history.unshift({at:new Date().toISOString(),action:'unit-status',unit:p.id,status:unit.status,by:p.by||socket.data.unitId||'Control'});
+    io.emit('unit:update',unit); saveState();
+  });
+  socket.on('teamlead:shift', p=>{
+    state.history.unshift({at:new Date().toISOString(),action:'teamlead-shift',unit:p.unit||socket.data.unitId||'Unknown',note:String(p.note||'').slice(0,500),detail:p.action||''});
+    state.history=state.history.slice(0,500); saveState();
+  });
   socket.on('disconnect',()=>{
     if(socket.data.unitId){ const unit=units.get(socket.data.unitId); if(unit){unit.status='Disconnected';unit.updatedAt=new Date().toISOString();io.emit('unit:update',unit);setTimeout(()=>{const current=units.get(unit.id);if(current?.socketId===socket.id)units.delete(unit.id)},30000);}}
   });
